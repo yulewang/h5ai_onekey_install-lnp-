@@ -98,7 +98,7 @@ php7_install(){
 nginx_conf_add(){
     cat > ${nginx_conf_dir}/h5ai.conf <<EOF
 server {
-    listen 80;
+    listen 88;
 
     server_name ${domain};
     root /home/wwwroot/${domain};
@@ -122,7 +122,7 @@ nginx_conf_ssl_add(){
     cat > ${nginx_conf_dir}/h5ai.conf <<EOF
 server
     {
-        listen 443 ssl http2;
+        listen 444 ssl http2;
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         server_name ${domain};
         root /home/wwwroot/${domain};
@@ -152,7 +152,7 @@ server
     }
 server
     {
-        listen 80;
+        listen 88;
         server_name ${domain};
         rewrite ^(.*) https://${domain}\$1 permanent;
     }
@@ -296,8 +296,8 @@ ssl(){
     systemctl stop nginx
     systemctl stop php7.0-fpm
 
-    port_exist_check 80
-    port_exist_check 443
+    port_exist_check 88
+    port_exist_check 444
 
     ssl_install
     acme
